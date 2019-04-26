@@ -7,37 +7,62 @@ import java.util.Properties;
 
 public class PropertiesReader {
 
-    private String apiKey;
-    private String latest;
-    private String base_url;
-    private String apiAccessUrl;
+    private static final String PROPAPIKEY = "api_key";
+    private static final String BASEURL = "base_url";
+    private static final String APIACCESSQUERY = "api_Access_Query";
+    private static final String LATESTENDPOINT = "latest_endpoint";
 
-    public PropertiesReader() {
-        Properties appproperties = new Properties();
-        try {
-            appproperties.load(new FileReader("app.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        apiKey = appproperties.getProperty("api_key");
-        base_url = appproperties.getProperty("base_url");
-        latest = appproperties.getProperty("latest_endpoint");
-        apiAccessUrl = appproperties.getProperty("api_Access_Url");
+    private static String apiAccessQuery;
+    private static String apiKey;
+    private static String latest;
+    private static String baseURL;
+
+    private PropertiesReader() {
     }
 
-    public String getApiKey() {
+    public static String getApiKey() {
+        if (apiKey == null){
+            setup();
+        }
         return apiKey;
     }
 
-    public String getLatest() {
+    public static String getLatest() {
+        if (latest == null){
+            setup();
+        }
         return latest;
     }
 
-    public String getBase_url() {
-        return base_url;
+    public static String getBase_url() {
+        if (baseURL == null){
+            setup();
+        }
+        return baseURL;
     }
 
-    public String getApiAccessUrl() {
-        return apiAccessUrl;
+    public static String getApiAccessUrl() {
+        if (apiAccessQuery == null){
+            setup();
+        }
+        return apiAccessQuery;
     }
+
+    public static void setup(){
+
+            java.util.Properties appproperties = new java.util.Properties();
+            try {
+                appproperties.load(new FileReader("app.properties"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            apiKey = appproperties.getProperty(PROPAPIKEY);
+            baseURL = appproperties.getProperty(BASEURL);
+            latest = appproperties.getProperty(LATESTENDPOINT);
+            apiAccessQuery = appproperties.getProperty(APIACCESSQUERY);
+
+
+    }
+
+
 }

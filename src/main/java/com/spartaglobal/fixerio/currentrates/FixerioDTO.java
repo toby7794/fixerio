@@ -1,15 +1,20 @@
-package com.spartaglobal.fixerio;
+package com.spartaglobal.fixerio.currentrates;
 
 import java.util.Map;
 
 public class FixerioDTO {
-
 
         private boolean success;
         private int timestamp;
         private String base;
         private String date;
         private Map<String, Double> rates;
+        private boolean historical;
+
+
+        public boolean isHistorical() {
+            return historical;
+        }
 
         public boolean isSuccess() {
             return success;

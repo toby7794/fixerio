@@ -1,6 +1,6 @@
-package com.spartaglobal.fixerio;
+package com.spartaglobal.fixerio.httpcall;
 
-import org.apache.http.client.HttpClient;
+import com.spartaglobal.fixerio.PropertiesReader;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -11,23 +11,36 @@ import java.io.IOException;
 
 public class HTTPManager {
 
-    private PropertiesReader properties = new PropertiesReader();
     private CloseableHttpResponse fullResponse;
 
     public HTTPManager() {
         makeAllRatesCall();
     }
 
-    private void makeAllRatesCall(){
+    public void makeAllRatesCall(){
 
         try {
             CloseableHttpClient httpClient = HttpClients.createDefault();
-            HttpGet getLatestRates = new HttpGet(properties.getBase_url() + properties.getLatest() + properties.getApiAccessUrl() + properties.getApiKey());
+            HttpGet getLatestRates = new HttpGet(PropertiesReader.getBase_url() + PropertiesReader.getLatest() + PropertiesReader.getApiAccessUrl() + PropertiesReader.getApiKey());
             fullResponse = httpClient.execute(getLatestRates);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public void makeHistoricalRate(String date){
+
+        try {
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            HttpGet getLatestRates = new HttpGet(PropertiesReader.getBase_url() + date + PropertiesReader.getApiAccessUrl() + PropertiesReader.getApiKey());
+            fullResponse = httpClient.execute(getLatestRates);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
     public String getResponseBody(){
         String bodyResult = null;
         try{

@@ -1,14 +1,12 @@
-package com.spartaglobal.fixerio;
+package com.spartaglobal.fixerio.currentrates;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.File;
-
-public class FixerioParser {
+public class FixerioDeserialiser {
 
     public FixerioDTO ratesMappedDTO;
 
-    public FixerioParser(String JSONString){
+    public FixerioDeserialiser(String JSONString){
         ObjectMapper ratesObject = new ObjectMapper();
 
         try{
