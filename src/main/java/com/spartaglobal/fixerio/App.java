@@ -8,6 +8,9 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        HTTPManager ratesLatestCall = new HTTPManager();
+        String values = ratesLatestCall.getResponseBody();
+        FixerioParser parser = new FixerioParser(values);
+        System.out.println(parser.ratesMappedDTO.getRates());
     }
 }
